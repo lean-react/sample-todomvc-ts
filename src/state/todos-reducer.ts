@@ -31,6 +31,13 @@ export function todosReducer(state: TodosState, action: TodosActions): TodosStat
         todos: state.todos.filter(t => t.id !== action.id)
       };
 
+    case TodosActionTypes.DestroyCompleted:
+      state.todos.filter(t => t.completed).map(t => t.id).forEach(persistence.destroy);
+      return {
+        ...state,
+        todos: state.todos.filter(t => !t.completed)
+      };
+
     default:
       return state;
   }

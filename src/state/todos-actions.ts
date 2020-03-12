@@ -4,7 +4,8 @@
 export enum TodosActionTypes {
   Create = '[TODOS] Create',
   Toggle = '[TODOS] Toggle',
-  Destroy = '[TODOS] Destroy'
+  Destroy = '[TODOS] Destroy',
+  DestroyCompleted = '[TODOS] Destroy Completed'
 }
 
 // Actions
@@ -24,7 +25,11 @@ interface DestroyTodo {
   id: number;
 }
 
-export type TodosActions = CreateTodo | ToggleTodo | DestroyTodo;
+interface DestroyCompleted {
+  type: TodosActionTypes.DestroyCompleted;
+}
+
+export type TodosActions = CreateTodo | ToggleTodo | DestroyTodo | DestroyCompleted;
 
 // Actions Creators
 
@@ -38,4 +43,8 @@ export function toggleTodo(id: number): TodosActions {
 
 export function destroyTodo(id: number): TodosActions {
   return { type: TodosActionTypes.Destroy, id };
+}
+
+export function destroyCompletedTodos(): TodosActions {
+  return { type: TodosActionTypes.DestroyCompleted };
 }

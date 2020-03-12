@@ -1,12 +1,18 @@
 import React, {useMemo} from 'react';
 import {useStore} from "./TodosApp";
+import {classes} from "../lib/classes";
+import {destroyCompletedTodos} from "../state/todos-actions";
 
 const TodosToolbar: React.FunctionComponent = () => {
 
-  const {state} = useStore();
+  const {state, dispatch} = useStore();
 
   const activeCount = useMemo(() => {
     return state.todos.reduce((count, todo) => todo.completed ? count : count + 1 , 0);
+  }, [state.todos]);
+
+  const hasNoCompleted = useMemo(() => {
+    return state.todos.findIndex(t => t.completed) === -1;
   }, [state.todos]);
 
   if (state.todos.length === 0) {
@@ -28,8 +34,12 @@ const TodosToolbar: React.FunctionComponent = () => {
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      { /*  <!-- Hidden if no completed items are left ↓ --> */}
-      <button className="clear-completed">Clear completed</button>
+      <button
+        className={classes({ hidden: hasNoCompleted },'clear-completed')}
+        onClick={() => dispatch(destroyCompletedTodos())}
+      >
+        Clear completed
+      </button>
     </footer>
   );
 };
