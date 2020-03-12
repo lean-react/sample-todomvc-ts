@@ -1,7 +1,7 @@
 
 // Action Types
 
-enum TodosActionTypes {
+export enum TodosActionTypes {
   Create = '[TODOS] Create',
   Toggle = '[TODOS] Toggle',
   Destroy = '[TODOS] Destroy'
