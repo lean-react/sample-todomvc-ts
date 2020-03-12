@@ -4,6 +4,7 @@
 export enum TodosActionTypes {
   Create = '[TODOS] Create',
   Toggle = '[TODOS] Toggle',
+  Update = '[TODOS] Update',
   Destroy = '[TODOS] Destroy',
   DestroyCompleted = '[TODOS] Destroy Completed',
   SyncAll = '[TODOS] Sync All'
@@ -21,6 +22,12 @@ interface ToggleTodo {
   id: number;
 }
 
+interface UpdateTodo {
+  type: TodosActionTypes.Update;
+  id: number;
+  title: string;
+}
+
 interface DestroyTodo {
   type: TodosActionTypes.Destroy;
   id: number;
@@ -35,7 +42,7 @@ interface SyncAll {
   completed: boolean;
 }
 
-export type TodosActions = CreateTodo | ToggleTodo | DestroyTodo | DestroyCompleted | SyncAll;
+export type TodosActions = CreateTodo | ToggleTodo | UpdateTodo | DestroyTodo | DestroyCompleted | SyncAll;
 
 // Actions Creators
 
@@ -45,6 +52,10 @@ export function createTodo(title: string): TodosActions {
 
 export function toggleTodo(id: number): TodosActions {
   return { type: TodosActionTypes.Toggle, id };
+}
+
+export function updateTodo(id: number, title: string): TodosActions {
+  return { type: TodosActionTypes.Update, id, title };
 }
 
 export function destroyTodo(id: number): TodosActions {

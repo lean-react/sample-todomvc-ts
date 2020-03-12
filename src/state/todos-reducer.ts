@@ -24,6 +24,14 @@ export function todosReducer(state: TodosState, action: TodosActions): TodosStat
         todos: state.todos.map(t => t.id === todo.id ? todo : t)
       };
 
+    case TodosActionTypes.Update:
+      todo = state.todos.find(t => t.id === action.id) as Todo;
+      todo = persistence.update(todo.id, { title: action.title });
+      return {
+        ...state,
+        todos: state.todos.map(t => t.id === todo.id ? todo : t)
+      };
+
     case TodosActionTypes.Destroy:
       persistence.destroy(action.id);
       return {
