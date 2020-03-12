@@ -55,6 +55,12 @@ export function todosReducer(state: TodosState, action: TodosActions): TodosStat
         todos: state.todos.map(t => ({...t, completed: action.completed}))
       };
 
+    case TodosActionTypes.SetFilter:
+      return {
+        ...state,
+        filter: action.filter
+      };
+
     default:
       return state;
   }

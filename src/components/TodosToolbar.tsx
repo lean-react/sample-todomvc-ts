@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {useStore} from "./TodosApp";
 import {classes} from "../lib/classes";
 import {destroyCompletedTodos} from "../state/todos-actions";
+import VisibilityFilter from "../models/VisibilityFilter";
 
 const TodosToolbar: React.FunctionComponent = () => {
 
@@ -15,6 +16,7 @@ const TodosToolbar: React.FunctionComponent = () => {
     return state.todos.findIndex(t => t.completed) === -1;
   }, [state.todos]);
 
+
   if (state.todos.length === 0) {
     return null;
   }
@@ -22,16 +24,15 @@ const TodosToolbar: React.FunctionComponent = () => {
   return (
     <footer className="footer">
       <span className="todo-count"><strong>{activeCount}</strong> item{ activeCount === 1 ? '':'s'} left</span>
-      { /* <!-- Remove this if you don't implement routing --> */}
       <ul className="filters">
         <li>
-          <a className="selected" href="#/">All</a>
+          <a className={classes({selected: state.filter === VisibilityFilter.All})} href="#/">All</a>
         </li>
         <li>
-          <a href="#/active">Active</a>
+          <a className={classes({selected: state.filter === VisibilityFilter.Active})} href="#/active">Active</a>
         </li>
         <li>
-          <a href="#/completed">Completed</a>
+          <a className={classes({selected: state.filter === VisibilityFilter.Completed})} href="#/completed">Completed</a>
         </li>
       </ul>
       <button

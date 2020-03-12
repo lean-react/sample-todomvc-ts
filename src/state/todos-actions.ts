@@ -1,13 +1,16 @@
 
 // Action Types
 
+import VisibilityFilter from "../models/VisibilityFilter";
+
 export enum TodosActionTypes {
   Create = '[TODOS] Create',
   Toggle = '[TODOS] Toggle',
   Update = '[TODOS] Update',
   Destroy = '[TODOS] Destroy',
   DestroyCompleted = '[TODOS] Destroy Completed',
-  SyncAll = '[TODOS] Sync All'
+  SyncAll = '[TODOS] Sync All',
+  SetFilter = '[FILTER] Set Visibility Filter'
 }
 
 // Actions
@@ -42,7 +45,12 @@ interface SyncAll {
   completed: boolean;
 }
 
-export type TodosActions = CreateTodo | ToggleTodo | UpdateTodo | DestroyTodo | DestroyCompleted | SyncAll;
+interface SetFilter {
+  type: TodosActionTypes.SetFilter;
+  filter: VisibilityFilter;
+}
+
+export type TodosActions = CreateTodo | ToggleTodo | UpdateTodo | DestroyTodo | DestroyCompleted | SyncAll | SetFilter;
 
 // Actions Creators
 
@@ -68,4 +76,8 @@ export function destroyCompletedTodos(): TodosActions {
 
 export function syncAllTodos(completed: boolean): TodosActions {
   return { type: TodosActionTypes.SyncAll, completed };
+}
+
+export function setFilter(filter: VisibilityFilter): TodosActions {
+  return { type: TodosActionTypes.SetFilter, filter };
 }
