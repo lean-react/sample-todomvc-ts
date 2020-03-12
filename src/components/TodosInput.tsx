@@ -1,9 +1,24 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 
-const TodosInput: React.FunctionComponent = () => {
+const TodosInput: React.FunctionComponent<{create: (title: string) => void}> = ({create}) => {
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus();
+  }, []);
+
+  const handleKeyEnter = (ev: React.KeyboardEvent) => {
+    const title = inputRef.current?.value.trim();
+    if (title && ev.key === 'Enter') {
+      create(title);
+      inputRef.current && (inputRef.current.value = '');
+    }
+  };
+
   return (
-    <input className="new-todo" placeholder="What needs to be done?" autoFocus />
+    <input ref={inputRef} onKeyUp={handleKeyEnter} className="new-todo" placeholder="What needs to be done?" />
   );
 };
 
-export default TodosInput;
+export default React.memo(TodosInput);

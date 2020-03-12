@@ -4,19 +4,23 @@ import TodosMain from "./TodosMain";
 import TodosToolbar from "./TodosToolbar";
 import {createStore} from "../lib/create-store";
 import TodosState, {initialState} from "../state/TodosState";
-import {TodosActions} from "../state/todos-actions";
+import {createTodo, TodosActions} from "../state/todos-actions";
 import {todosReducer} from "../state/todos-reducer";
 
-export const [useStore, StoreProvider] = createStore<TodosState, TodosActions>();
+const [useStoreHook, StoreProvider] = createStore<TodosState, TodosActions>();
 
 const TodosApp = () => {
   const [state, dispatch] = useReducer(todosReducer, initialState);
+
+  const handleCreate = (title: string) => {
+    dispatch(createTodo(title));
+  };
 
   return <StoreProvider value={ {state,dispatch} }>
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <TodosInput />
+        <TodosInput create={handleCreate} />
       </header>
       <TodosMain />
       <TodosToolbar />
@@ -29,4 +33,5 @@ const TodosApp = () => {
   </StoreProvider>
 };
 
+export const useStore = useStoreHook;
 export default TodosApp;
