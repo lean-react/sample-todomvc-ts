@@ -15,7 +15,7 @@ const TodosMain: React.FunctionComponent = () => {
       { /* <!-- This section should be hidden by default and shown when there are todos --> */}
       <input id="toggle-all" className="toggle-all" type="checkbox"/>
       <label htmlFor="toggle-all">Mark all as complete</label>
-      <TodosList />
+      <TodosList todos={state.todos} />
     </section>
   );
 };
