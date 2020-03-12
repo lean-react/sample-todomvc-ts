@@ -7,7 +7,6 @@ import {destroyTodo, toggleTodo, updateTodo} from "../state/todos-actions";
 const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
 
   const [editMode, setEditMode] = useState(false);
-  const [editText, setEditText] = useState(todo.title);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -19,12 +18,12 @@ const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
 
   const commitEdit = () => {
     if (editMode) {
-      const title = editText.trim();
-      if (title.length === 0) {
+      const title = inputRef.current?.value.trim();
+      if (!title) {
         dispatch(destroyTodo(todo.id));
       } else {
         dispatch(updateTodo(todo.id, title));
-        setEditText(title);
+        inputRef.current && (inputRef.current.value = title)
       }
       setEditMode(false);
     }
@@ -32,7 +31,7 @@ const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
 
   const handleKey = (ev: React.KeyboardEvent) => {
     if (ev.key === 'Escape') {
-      setEditText(todo.title);
+      inputRef.current && (inputRef.current.value = todo.title);
       setEditMode(false);
     } else if (ev.key === 'Enter' ) {
       commitEdit();
@@ -50,8 +49,7 @@ const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
              ref={inputRef}
              onBlur={commitEdit}
              onKeyUp={handleKey}
-             value={editText}
-             onChange={ev => setEditText(ev.currentTarget.value)} />
+             defaultValue={todo.title} />
     </li>
   );
 };
