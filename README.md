@@ -6,4 +6,7 @@ Zur Spezifikation des Projekts: [App Spec](/https://github.com/tastejs/todomvc/b
 
 ## Branches:
 
-* master: Enthält den Starting Point. Enjoy the ride!
+* **master**: Enthält den Starting Point. Enjoy the ride!
+* **function-components**: Implementierung mit Funktions-Komponenten
+* **class-components**: Implementierung mit Klassen-Komponenten
+
