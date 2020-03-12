@@ -4,3 +4,6 @@
 
 Zur Spezifikation des Projekts: [App Spec](/https://github.com/tastejs/todomvc/blob/master/app-spec.md)
 
+## Branches:
+
+* master: Enthält den Starting Point. Enjoy the ride!
