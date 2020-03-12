@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {useMemo} from 'react';
+import {useStore} from "./TodosApp";
 
 const TodosToolbar: React.FunctionComponent = () => {
+
+  const {state} = useStore();
+
+  const activeCount = useMemo(() => {
+    return state.todos.reduce((count, todo) => todo.completed ? count : count + 1 , 0);
+  }, [state.todos]);
+
+  if (state.todos.length === 0) {
+    return null;
+  }
+
   return (
     <footer className="footer">
-      { /* <!-- This footer should hidden by default and shown when there are todos --> */}
-      { /* <!-- This should be `0 items left` by default --> */}
-      <span className="todo-count"><strong>0</strong> item left</span>
+      <span className="todo-count"><strong>{activeCount}</strong> item{ activeCount === 1 ? '':'s'} left</span>
       { /* <!-- Remove this if you don't implement routing --> */}
       <ul className="filters">
         <li>
