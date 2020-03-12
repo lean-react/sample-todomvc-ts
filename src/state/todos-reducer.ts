@@ -38,6 +38,15 @@ export function todosReducer(state: TodosState, action: TodosActions): TodosStat
         todos: state.todos.filter(t => !t.completed)
       };
 
+    case TodosActionTypes.SyncAll:
+      state.todos.filter(t => t.completed !== action.completed).forEach(
+        t => persistence.update(t.id, { completed: action.completed })
+      );
+      return {
+        ...state,
+        todos: state.todos.map(t => ({...t, completed: action.completed}))
+      };
+
     default:
       return state;
   }
