@@ -7,23 +7,33 @@ import TodosState from "../state/TodosState";
 import {createTodo, setFilter, TodosActions} from "../state/todos-actions";
 import {initialState, todosReducer} from "../state/todos-reducer";
 import {mapLocationToFilter} from "../models/VisibilityFilter";
+import {useDispatch, useSelector} from "react-redux";
 
 const [useStoreHook, StoreProvider] = createStore<TodosState, TodosActions>();
 
 const TodosApp = () => {
-  const [state, dispatch] = useReducer(todosReducer, initialState);
 
+  const dispatch = useDispatch();
+
+  const [legacyState, legacyDispatch] = useReducer(todosReducer, initialState);
+
+  // Hook with dispatch dependency. (dispatch is stable, so executed just once.)
   useEffect(() => {
-    window.addEventListener('hashchange', () => {
+    const hashChangeListener = () => {
       dispatch(setFilter(mapLocationToFilter()));
-    });
-  }, []);
+    };
+
+    // Register listener and return cleanup function
+    window.addEventListener('hashchange', hashChangeListener);
+    return () => window.removeEventListener('hashchange', hashChangeListener);
+
+  }, [dispatch]);
 
   const handleCreate = (title: string) => {
     dispatch(createTodo(title));
   };
 
-  return <StoreProvider value={ {state,dispatch} }>
+  return <StoreProvider value={ {state: legacyState,dispatch: legacyDispatch} }>
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
