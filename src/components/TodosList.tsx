@@ -3,13 +3,14 @@ import TodosItem from "./TodosItem";
 import Todo from "../models/Todo";
 import {useStore} from "./TodosApp";
 import VisibilityFilter from "../models/VisibilityFilter";
+import {useSelector} from "react-redux";
 
 const TodosList: React.FunctionComponent<{ todos: Todo[] }> = ({todos}) => {
 
-  const {state} = useStore();
+  const filter = useSelector(s => s.todos.filter);
 
-  const filteredTodos = state.filter === VisibilityFilter.All ? todos
-    : todos.filter(t => t.completed === (state.filter === VisibilityFilter.Completed));
+  const filteredTodos = filter === VisibilityFilter.All ? todos
+    : todos.filter(t => t.completed === (filter === VisibilityFilter.Completed));
 
   return (
     <ul className="todo-list">

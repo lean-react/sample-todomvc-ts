@@ -5,4 +5,3 @@ export default interface TodosState {
   list: Todo[];
   filter: VisibilityFilter;
 }
-
