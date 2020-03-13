@@ -2,8 +2,9 @@ import TodosState from "./TodosState";
 import {TodosActions, TodosActionTypes} from "./todos-actions";
 import Todo from "../models/Todo";
 import * as persistence from "../lib/persistence";
+import VisibilityFilter from "../models/VisibilityFilter";
 
-export function todosReducer(state: TodosState, action: TodosActions): TodosState {
+export function todosReducer(state: TodosState = {list: [], filter: VisibilityFilter.All}, action: TodosActions): TodosState {
 
   let todo: Todo;
 
