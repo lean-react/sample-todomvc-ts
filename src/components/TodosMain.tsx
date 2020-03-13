@@ -2,14 +2,15 @@ import React, {useMemo} from 'react';
 import TodosList from "./TodosList";
 import {useStore} from './TodosApp';
 import {syncAllTodos} from "../state/todos-actions";
+import {useDispatch, useSelector} from "react-redux";
 
 const TodosMain: React.FunctionComponent = () => {
 
-  const { state, dispatch } = useStore();
+  const dispatch = useDispatch();
+  const todos = useSelector(s => s.todos.list);
+  const allCompleted = useMemo(() => todos.findIndex(t => !t.completed) === -1,[todos]);
 
-  const allCompleted = useMemo(() => state.list.findIndex(t => !t.completed) === -1,[state.list]);
-
-  if (state.list.length === 0) {
+  if (todos.length === 0) {
     return null;
   }
 
@@ -20,7 +21,7 @@ const TodosMain: React.FunctionComponent = () => {
              onChange={() => dispatch(syncAllTodos(!allCompleted))}
       />
       <label htmlFor="toggle-all">Mark all as complete</label>
-      <TodosList todos={state.list} />
+      <TodosList todos={todos} />
     </section>
   );
 };
