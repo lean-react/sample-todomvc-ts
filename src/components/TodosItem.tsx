@@ -3,6 +3,7 @@ import Todo from "../models/Todo";
 import {classes} from "../lib/classes";
 import {useStore} from "./TodosApp";
 import {destroyTodo, toggleTodo, updateTodo} from "../state/todos-actions";
+import {useDispatch} from "react-redux";
 
 const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
 
@@ -14,7 +15,7 @@ const TodosItem: React.FunctionComponent<{ todo: Todo}> = ({todo}) => {
     if(editMode) { inputRef.current?.focus() }
   }, [editMode]);
 
-  const { dispatch } = useStore();
+  const dispatch = useDispatch();
 
   const commitEdit = () => {
     if (editMode) {
