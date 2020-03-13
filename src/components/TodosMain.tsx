@@ -7,9 +7,9 @@ const TodosMain: React.FunctionComponent = () => {
 
   const { state, dispatch } = useStore();
 
-  const allCompleted = useMemo(() => state.todos.findIndex(t => !t.completed) === -1,[state.todos]);
+  const allCompleted = useMemo(() => state.list.findIndex(t => !t.completed) === -1,[state.list]);
 
-  if (state.todos.length === 0) {
+  if (state.list.length === 0) {
     return null;
   }
 
@@ -20,7 +20,7 @@ const TodosMain: React.FunctionComponent = () => {
              onChange={() => dispatch(syncAllTodos(!allCompleted))}
       />
       <label htmlFor="toggle-all">Mark all as complete</label>
-      <TodosList todos={state.todos} />
+      <TodosList todos={state.list} />
     </section>
   );
 };

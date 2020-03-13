@@ -13,46 +13,46 @@ export function todosReducer(state: TodosState, action: TodosActions): TodosStat
       todo = persistence.create(action.title);
       return {
         ...state,
-        todos: [...state.todos, todo]
+        list: [...state.list, todo]
       };
 
     case TodosActionTypes.Toggle:
-      todo = state.todos.find(t => t.id === action.id) as Todo;
+      todo = state.list.find(t => t.id === action.id) as Todo;
       todo = persistence.update(todo.id, { completed: !todo.completed });
       return {
         ...state,
-        todos: state.todos.map(t => t.id === todo.id ? todo : t)
+        list: state.list.map(t => t.id === todo.id ? todo : t)
       };
 
     case TodosActionTypes.Update:
-      todo = state.todos.find(t => t.id === action.id) as Todo;
+      todo = state.list.find(t => t.id === action.id) as Todo;
       todo = persistence.update(todo.id, { title: action.title });
       return {
         ...state,
-        todos: state.todos.map(t => t.id === todo.id ? todo : t)
+        list: state.list.map(t => t.id === todo.id ? todo : t)
       };
 
     case TodosActionTypes.Destroy:
       persistence.destroy(action.id);
       return {
         ...state,
-        todos: state.todos.filter(t => t.id !== action.id)
+        list: state.list.filter(t => t.id !== action.id)
       };
 
     case TodosActionTypes.DestroyCompleted:
-      state.todos.filter(t => t.completed).map(t => t.id).forEach(persistence.destroy);
+      state.list.filter(t => t.completed).map(t => t.id).forEach(persistence.destroy);
       return {
         ...state,
-        todos: state.todos.filter(t => !t.completed)
+        list: state.list.filter(t => !t.completed)
       };
 
     case TodosActionTypes.SyncAll:
-      state.todos.filter(t => t.completed !== action.completed).forEach(
+      state.list.filter(t => t.completed !== action.completed).forEach(
         t => persistence.update(t.id, { completed: action.completed })
       );
       return {
         ...state,
-        todos: state.todos.map(t => ({...t, completed: action.completed}))
+        list: state.list.map(t => ({...t, completed: action.completed}))
       };
 
     case TodosActionTypes.SetFilter:

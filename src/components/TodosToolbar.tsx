@@ -9,15 +9,15 @@ const TodosToolbar: React.FunctionComponent = () => {
   const {state, dispatch} = useStore();
 
   const activeCount = useMemo(() => {
-    return state.todos.reduce((count, todo) => todo.completed ? count : count + 1 , 0);
-  }, [state.todos]);
+    return state.list.reduce((count, todo) => todo.completed ? count : count + 1 , 0);
+  }, [state.list]);
 
   const hasNoCompleted = useMemo(() => {
-    return state.todos.findIndex(t => t.completed) === -1;
-  }, [state.todos]);
+    return state.list.findIndex(t => t.completed) === -1;
+  }, [state.list]);
 
 
-  if (state.todos.length === 0) {
+  if (state.list.length === 0) {
     return null;
   }
 
