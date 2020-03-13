@@ -8,5 +8,8 @@ Zur Spezifikation des Projekts: [App Spec](/https://github.com/tastejs/todomvc/b
 
 * **master**: Enthält den Starting Point. Enjoy the ride!
 * **function-components**: Implementierung mit Funktions-Komponenten
+* **function-components-redux**: Funktions-Komponenten und Redux
 * **class-components**: Implementierung mit Klassen-Komponenten
+* **class-components-redux**: Klassen-Komponenten mit Redux
+
 
