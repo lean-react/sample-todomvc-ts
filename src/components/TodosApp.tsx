@@ -3,9 +3,9 @@ import TodosInput from "./TodosInput";
 import TodosMain from "./TodosMain";
 import TodosToolbar from "./TodosToolbar";
 import {createStore} from "../lib/create-store";
-import TodosState, {initialState} from "../state/TodosState";
+import TodosState from "../state/TodosState";
 import {createTodo, setFilter, TodosActions} from "../state/todos-actions";
-import {todosReducer} from "../state/todos-reducer";
+import {initialState, todosReducer} from "../state/todos-reducer";
 import {mapLocationToFilter} from "../models/VisibilityFilter";
 
 const [useStoreHook, StoreProvider] = createStore<TodosState, TodosActions>();

@@ -2,9 +2,16 @@ import TodosState from "./TodosState";
 import {TodosActions, TodosActionTypes} from "./todos-actions";
 import Todo from "../models/Todo";
 import * as persistence from "../lib/persistence";
-import VisibilityFilter from "../models/VisibilityFilter";
+import {mapLocationToFilter} from "../models/VisibilityFilter";
 
-export function todosReducer(state: TodosState = {list: [], filter: VisibilityFilter.All}, action: TodosActions): TodosState {
+// Initializing reducer state. See https://redux.js.org/recipes/structuring-reducers/initializing-state/
+
+export const initialState: TodosState = {
+  list: persistence.getAll(),
+  filter: mapLocationToFilter()
+};
+
+export function todosReducer(state: TodosState = initialState, action: TodosActions): TodosState {
 
   let todo: Todo;
 
