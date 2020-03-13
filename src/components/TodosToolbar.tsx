@@ -3,10 +3,12 @@ import {useStore} from "./TodosApp";
 import {classes} from "../lib/classes";
 import {destroyCompletedTodos} from "../state/todos-actions";
 import VisibilityFilter from "../models/VisibilityFilter";
+import {useDispatch, useSelector} from "react-redux";
 
 const TodosToolbar: React.FunctionComponent = () => {
 
-  const {state, dispatch} = useStore();
+  const dispatch = useDispatch();
+  const state = useSelector(s => s.todos);
 
   const activeCount = useMemo(() => {
     return state.list.reduce((count, todo) => todo.completed ? count : count + 1 , 0);
