@@ -15,8 +15,6 @@ const TodosApp = () => {
 
   const dispatch = useDispatch();
 
-  const [legacyState, legacyDispatch] = useReducer(todosReducer, initialState);
-
   // Hook with dispatch dependency. (dispatch is stable, so executed just once.)
   useEffect(() => {
     const hashChangeListener = () => {
@@ -33,7 +31,7 @@ const TodosApp = () => {
     dispatch(createTodo(title));
   };
 
-  return <StoreProvider value={ {state: legacyState,dispatch: legacyDispatch} }>
+  return <>
     <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
@@ -47,7 +45,7 @@ const TodosApp = () => {
       <p>Created by <a href="http://lean-stack.de">Michael Alt</a></p>
       <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
-  </StoreProvider>
+  </>
 };
 
 export const useStore = useStoreHook;
