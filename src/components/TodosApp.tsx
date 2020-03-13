@@ -1,15 +1,10 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect} from 'react';
 import TodosInput from "./TodosInput";
 import TodosMain from "./TodosMain";
 import TodosToolbar from "./TodosToolbar";
-import {createStore} from "../lib/create-store";
-import TodosState from "../state/TodosState";
-import {createTodo, setFilter, TodosActions} from "../state/todos-actions";
-import {initialState, todosReducer} from "../state/todos-reducer";
+import {createTodo, setFilter} from "../state/todos-actions";
 import {mapLocationToFilter} from "../models/VisibilityFilter";
-import {useDispatch, useSelector} from "react-redux";
-
-const [useStoreHook, StoreProvider] = createStore<TodosState, TodosActions>();
+import {useDispatch} from "react-redux";
 
 const TodosApp = () => {
 
@@ -48,5 +43,4 @@ const TodosApp = () => {
   </>
 };
 
-export const useStore = useStoreHook;
 export default TodosApp;

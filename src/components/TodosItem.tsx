@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Todo from "../models/Todo";
 import {classes} from "../lib/classes";
-import {useStore} from "./TodosApp";
 import {destroyTodo, toggleTodo, updateTodo} from "../state/todos-actions";
 import {useDispatch} from "react-redux";
 

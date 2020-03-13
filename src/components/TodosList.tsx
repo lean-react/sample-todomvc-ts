@@ -1,7 +1,6 @@
 import React from 'react';
 import TodosItem from "./TodosItem";
 import Todo from "../models/Todo";
-import {useStore} from "./TodosApp";
 import VisibilityFilter from "../models/VisibilityFilter";
 import {useSelector} from "react-redux";
 

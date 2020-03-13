@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
 import TodosList from "./TodosList";
-import {useStore} from './TodosApp';
 import {syncAllTodos} from "../state/todos-actions";
 import {useDispatch, useSelector} from "react-redux";
 

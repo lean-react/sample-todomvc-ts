@@ -1,5 +1,4 @@
 import React, {useMemo} from 'react';
-import {useStore} from "./TodosApp";
 import {classes} from "../lib/classes";
 import {destroyCompletedTodos} from "../state/todos-actions";
 import VisibilityFilter from "../models/VisibilityFilter";
